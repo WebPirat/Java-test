@@ -8,7 +8,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Choose an option:\n1. Ask a question\n2. Add a question");
+            System.out.println("Choose an option(or exit with 3):\n1. Ask a question\n2. Add a question");
             String option = scanner.nextLine().trim();
 
 

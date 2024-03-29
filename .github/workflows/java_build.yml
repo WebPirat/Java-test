@@ -6,9 +6,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -36,11 +34,39 @@ jobs:
       - name: Create Executable Jar
         run: ./gradlew jar
 
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Test with Gradle
+        run: ./gradlew test
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
       - name: Publish to GitHub Packages
         run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_GIT_TOKEN }}
 
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
