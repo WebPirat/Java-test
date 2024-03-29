@@ -59,6 +59,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SECRET_GIT_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/libs/app-1.0.0.jar
+          asset_path: ./app/build/libs/app-1.0.0.jar
           asset_name: Yolo-1.0.0.jar
           asset_content_type: application/java-archive
