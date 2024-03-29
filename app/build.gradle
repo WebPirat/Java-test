@@ -11,7 +11,7 @@ plugins {
     id 'application'
 }
 
-group = 'com.example'
+group = 'Yolo'
 version = '1.0.0'
 
 publishing {
@@ -69,4 +69,12 @@ application {
 }
 run {
     standardInput = System.in
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'yolo.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
